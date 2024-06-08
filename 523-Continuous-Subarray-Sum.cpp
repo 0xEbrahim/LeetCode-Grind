@@ -1,8 +1,9 @@
+const static auto _ = [] { std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr); return nullptr; }();
 class Solution {
 public:
     bool checkSubarraySum(vector<int>& nums, int k) {
     int n = nums.size();
-    map<int, int>mp;
+    unordered_map<int, int>mp;
     int sum = 0;
     bool found = false;
     int last = 0;
