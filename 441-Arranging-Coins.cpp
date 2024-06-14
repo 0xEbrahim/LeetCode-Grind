@@ -5,9 +5,9 @@ public:
             return sum <= tar;
     }
     int arrangeCoins(int n) {
-        // n * (n + 1) / 2;
+       
         int ans = 0;
-        long long l = 0, r = 1e8 ;
+        long long l = 0, r = 1e5 + 1 ;
         while(l <= r){
             int mid = l + (r - l)/2;
             if(pred(mid, n)){
