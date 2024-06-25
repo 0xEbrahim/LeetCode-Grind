@@ -1,4 +1,3 @@
-SELECT tweet_id FROM (SELECT tweet_id , content
+SELECT tweet_id
 FROM Tweets t
-HAVING LENGTH(CONTENT) > 15
-)t1
+WHERE LENGTH(CONTENT) > 15
