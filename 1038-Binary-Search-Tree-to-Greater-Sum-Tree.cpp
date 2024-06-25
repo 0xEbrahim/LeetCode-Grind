@@ -11,17 +11,16 @@
  */
 class Solution {
 public:
-    void dfs(TreeNode*node, int &sum){
-        if(node == NULL)
-            return;
-        dfs(node -> right, sum);
-        node -> val += sum;
-        sum = node -> val;
-        dfs(node -> left , sum);
+        int sum = 0;
+    void dfs(TreeNode*node){
+        if(node == NULL)    return;
+        dfs(node -> right);
+        sum += node -> val;
+        node -> val = sum;
+        dfs(node -> left);
     }
     TreeNode* bstToGst(TreeNode* root) {
-        int sum = 0;
-        dfs(root,sum);
+        dfs(root);
         return root;
     }
 };
