@@ -1,5 +1,9 @@
-SELECT product_id, year AS first_year , quantity , price
-FROM  SALES
-WHERE (product_id, year) IN (
-    SELECT product_id, MIN(YEAR) as year FROM SALES GROUP BY product_id
-)
+SELECT product_id, year AS first_year ,quantity , price
+FROM    (
+    SELECT *, DENSE_RANK() OVER(
+    PARTITION BY product_id
+    ORDER BY year
+    ) AS DR
+FROM SALES
+) AS T1
+WHERE DR=1
