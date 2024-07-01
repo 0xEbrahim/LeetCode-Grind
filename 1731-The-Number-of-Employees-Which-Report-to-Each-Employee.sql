@@ -1,5 +1,7 @@
-SELECT s.employee_id, s.name, (SELECT SUM(IF(reports_to=s.employee_id AND employee_id != s.employee_id,1,0)) FROM Employees) AS reports_count,
-(SELECT ROUND(SUM(IF(reports_to=s.employee_id AND employee_id != s.employee_id,age,0))/SUM(IF(reports_to=s.employee_id,1,0))) FROM Employees) as average_age 
-FROM Employees s
-WHERE (SELECT SUM(IF(reports_to=s.employee_id AND employee_id != s.employee_id,1,0)) FROM Employees) >= 1
-ORDER BY s.employee_id
+SELECT employee_id, name, COUNT(employee_id) AS reports_count , ROUND(AVG(age)) AS average_age  FROM (
+    SELECT e1.employee_id, e1.name,e2.age FROM Employees e1 RIGHT JOIN Employees e2
+    ON e1.employee_id=e2.reports_to
+) T1
+WHERE employee_id IS NOT NULL
+GROUP BY employee_id
+ORDER BY employee_id
