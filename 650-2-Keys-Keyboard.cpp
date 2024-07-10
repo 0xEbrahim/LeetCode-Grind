@@ -17,7 +17,7 @@ int go(int cur, int copied){
 }
     int minSteps(int n) {
         num = n;
-        dp.resize(2 * n + 10, vector<int>(2 * n + 10, -1));
+        dp.resize(n + 10, vector<int>(n + 10, -1));
         return go(1,0);
     }
 };
