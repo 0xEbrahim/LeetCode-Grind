@@ -1,20 +1,20 @@
 class Solution {
 public:
-    int divide(int d, int ddr) {
-        long long dd = d, dr = ddr;
-        bool same_sign = (dd > 0 && dr > 0) || (dd < 0 && dr < 0);
-        if(dr == 1 || dr == -1){
-            long long ret = abs((long long)dd) * (!same_sign ? -1 : 1);
-            if(ret >= 2147483647)
-                return 2147483647;
-            return ret;
+    int divide(int dividend, int divisor) {
+        if (dividend == INT_MIN && divisor == -1) {
+            return INT_MAX;
         }
-        dr = abs(dr) , dd = abs(dd);
-        int count = 0;
-        while(dd >= dr){
-            count++;
-            dd -= dr;
+        long dvd = labs(dividend), dvs = labs(divisor), ans = 0;
+        int sign = dividend > 0 ^ divisor > 0 ? -1 : 1;
+        while (dvd >= dvs) {
+            long temp = dvs, m = 1;
+            while (temp << 1 <= dvd) {
+                temp <<= 1;
+                m <<= 1;
+            }
+            dvd -= temp;
+            ans += m;
         }
-        return count * (same_sign == false ? -1 : 1);
+        return sign * ans;
     }
 };
