@@ -11,9 +11,11 @@
  */
 class Solution {
 public:
+    bool find[100000 + 5] = {}; 
     bool findValue(int val,TreeNode*root){
         if(root == NULL)
             return false;
+        find[root -> val] = true;
         if(root -> val == val)
             return true;
         bool right = false, left = false;
@@ -27,7 +29,7 @@ public:
         int ret = 0;
         for(int i = low ; i <= high ; i++){
             TreeNode*tmp = root;
-            if(findValue(i, root)){
+            if(find[i] || findValue(i, root)){
                 root = tmp;
                 ret += i;
             }
