@@ -8,17 +8,10 @@ public:
         }
         sort(freq.rbegin(), freq.rend());
         int ans = 0;
+        int push = 1; 
         for(int i = 0 ; i < 26 ; i++){
-            if(freq[i] == 0)
-                break;
-            if(i < 8)
-                ans += freq[i];
-            else if(i >= 8 && i < 16)
-                ans += 2 * freq[i];
-            else if(i >= 16 && i < 24)
-                ans += 3 * freq[i];
-            else
-                ans += 4 * freq[i]; 
+             if (i>=8 && i%8==0) push++;
+            ans+=freq[i]*push;    
         }
         return ans;
     }
