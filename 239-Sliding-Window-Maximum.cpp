@@ -4,17 +4,13 @@ public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
         vector<int>ret;
         int n = nums.size();
-        int l = 0 , r = k - 1;
-        multiset<int>st;
-        for(int i = 0 ; i <= r ; i++) st.insert(nums[i]);
-        ret.push_back(*st.rbegin());
-        while(r < n - 1){
-            auto it = st.lower_bound(nums[l]);
-            st.erase(it);
-            l++;
-            r++;
-            st.insert(nums[r]);
-            ret.push_back(*st.rbegin());
+        int l = 0 , r = 0;
+        deque<int>q;
+        for(int i = 0 ; i < n ; i++){
+            if(not q.empty() && q.front() == i - k) q.pop_front();
+            while(not q.empty() && nums[i] > nums[q.back()]) q.pop_back();
+            q.push_back(i);
+            if(i >= k - 1) ret.push_back(nums[q.front()]);
         }
         return ret;
     }
