@@ -4,7 +4,7 @@ public:
         if(k == 0)return false;
         int l = 0, r = 0;
         int n = v.size();
-        map<int, int>mp;
+        unordered_map<int, int>mp;
         while(r < n){
             if(abs(r - l) > k)l++;
             if(mp.count(v[r]) && mp[v[r]] >= r - k) return true;
