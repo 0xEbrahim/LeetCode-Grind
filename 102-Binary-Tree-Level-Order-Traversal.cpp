@@ -11,25 +11,24 @@
  */
 class Solution {
 public:
-    struct P{
-        TreeNode*node;
-        int lvl;
-    };
+    
     vector<vector<int>> levelOrder(TreeNode* root) {
         if(root == NULL) return {};
-        vector<vector<int>>lvls(2001);
-        queue<P>q;
-        q.push({root, 0});
+        queue<TreeNode*>q;
+        q.push(root);
+        vector<vector<int>>res;
         while(not q.empty()){
-            TreeNode*node = q.front().node;
-            int level = q.front().lvl;
-            q.pop();
-            lvls[level].push_back(node -> val);
-            if(node -> left) q.push({node -> left, level + 1});
-            if(node -> right) q.push({node -> right, level + 1});
+            vector<int>v;
+            int sz = q.size();
+            for(int i = 0 ; i < sz ;i++){
+                TreeNode*node = q.front();
+                q.pop();
+                v.push_back(node -> val);
+                if(node -> left) q.push(node -> left);
+                if(node -> right) q.push(node -> right);
+            }
+            res.push_back(v);
         }
-        vector<vector<int>>ret;
-        for(int i = 0 ; i < lvls.size() ; i++) if(not lvls[i].empty()) ret.push_back(lvls[i]);
-        return ret;
+        return res;
     }
 };
