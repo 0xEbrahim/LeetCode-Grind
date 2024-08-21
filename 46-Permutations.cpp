@@ -4,14 +4,14 @@ public:
     void perm(vector<int>&nums, vector<int>&sub, vector<bool>&vis){
         if(sub.size() == nums.size()) {
             res.push_back(sub); return;
-        }
+            }
         for(int i = 0 ; i < nums.size() ; i++){
-            if(!vis[i]){
-                sub.push_back(nums[i]);
+            if(vis[i]) continue;
+            sub.push_back(nums[i]);
             vis[i] = true;
             perm(nums, sub, vis);
             vis[i] = false;
-            sub.pop_back();}
+            sub.pop_back();
         }
     }
     vector<vector<int>> permute(vector<int>& nums) {
