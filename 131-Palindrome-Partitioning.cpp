@@ -1,34 +1,32 @@
 class Solution {
 public:
-    vector<vector<string>> partition(string s) {
-        vector<vector<string> > ret;
-        if(s.empty()) return ret;
-        
-        vector<string> path;
-        dfs(0, s, path, ret);
-        
-        return ret;
+    bool isPal(vector<string>&v, string&ss){
+        bool ret = true;
+        int sum = 0;
+        for(auto &s : v){
+            sum += s.size();
+        for(int i = 0 ; i < s.size() / 2 ; i++) ret &= s[i] == s[s.size() - i - 1];
+        }
+        return ret && sum == ss.size();
     }
-    
-    void dfs(int index, string& s, vector<string>& path, vector<vector<string> >& ret) {
-        if(index == s.size()) {
-            ret.push_back(path);
+    void back(int idx, string&s, vector<vector<string>>&ans, vector<string>&comp, string tmp){
+        if(idx == s.size()){
+            if(isPal(comp, s)){
+                ans.push_back(comp);
+                return;
+            }
             return;
         }
-        for(int i = index; i < s.size(); ++i) {
-            if(isPalindrome(s, index, i)) {
-                path.push_back(s.substr(index, i - index + 1));
-                dfs(i+1, s, path, ret);
-                path.pop_back();
-            }
-        }
+        tmp += s[idx];
+        back(idx + 1, s , ans, comp, tmp);
+        comp.push_back(tmp);
+        back(idx + 1, s , ans, comp, "");
+        comp.pop_back();
     }
-    
-    bool isPalindrome(const string& s, int start, int end) {
-        while(start <= end) {
-            if(s[start++] != s[end--])
-                return false;
-        }
-        return true;
+    vector<vector<string>> partition(string s) {
+        vector<vector<string>>ans;
+        vector<string>g = {};
+        back(0, s, ans, g, "");
+        return ans;
     }
 };
