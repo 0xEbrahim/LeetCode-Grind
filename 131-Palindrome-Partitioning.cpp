@@ -1,32 +1,29 @@
 class Solution {
 public:
-    bool isPal(vector<string>&v, string&ss){
+    bool isPal(string s){
         bool ret = true;
-        int sum = 0;
-        for(auto &s : v){
-            sum += s.size();
+        
         for(int i = 0 ; i < s.size() / 2 ; i++) ret &= s[i] == s[s.size() - i - 1];
-        }
-        return ret && sum == ss.size();
+        
+        return ret;
     }
-    void back(int idx, string&s, vector<vector<string>>&ans, vector<string>&comp, string tmp){
+    void back(int idx, string&s, vector<vector<string>>&ans, vector<string>&comp){
         if(idx == s.size()){
-            if(isPal(comp, s)){
                 ans.push_back(comp);
                 return;
-            }
-            return;
         }
-        tmp += s[idx];
-        back(idx + 1, s , ans, comp, tmp);
-        comp.push_back(tmp);
-        back(idx + 1, s , ans, comp, "");
-        comp.pop_back();
+
+       for(int i = idx ; i < s.size() ; i++){
+        if(isPal(s.substr(idx, (i - idx) + 1))){
+         comp.push_back(s.substr(idx, (i - idx) + 1));
+         back(i + 1, s , ans, comp);
+         comp.pop_back();}
+    }
     }
     vector<vector<string>> partition(string s) {
         vector<vector<string>>ans;
         vector<string>g = {};
-        back(0, s, ans, g, "");
+        back(0, s, ans, g);
         return ans;
     }
 };
