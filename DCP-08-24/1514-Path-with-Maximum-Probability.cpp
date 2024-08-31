@@ -8,12 +8,9 @@ public:
             graph[edges[i][1]][edges[i][0]] = succProb[i];
         }
         
-        //functionality wise, this array works as a visited array, 
-        //only when we find a larger probability than the stored value
-        //we will need to push next node into the queue
-        vector<double> ps(n, 0.0);  ///probability of reaching each node
+        vector<double> ps(n, 0.0); 
         
-        ps[start] = 1.0; //important intilization
+        ps[start] = 1.0; 
         
         queue<int> q;
         q.push(start);
@@ -24,8 +21,7 @@ public:
             for(auto& it: graph[nd]) {
                 int next = it.first;
                 double pro = it.second;
-                //ok, we can reach this node with a larger probability, try starting from it
-                //a node might be pushed into the queue more than once
+             
                 if(ps[nd] * pro > ps[next]) {
                     q.push(next);
                     ps[next] = ps[nd] * pro;
